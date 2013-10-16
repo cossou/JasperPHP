@@ -81,12 +81,12 @@ TODO.
 ###Java
 
 Check if you already have Java installed:
-	
+```java	
 	$ java -version
 	java version "1.6.0_51"
 	Java(TM) SE Runtime Environment (build 1.6.0_51-b11-457-11M4509)
 	Java HotSpot(TM) 64-Bit Server VM (build 20.51-b01-457, mixed mode)
-
+```
 If you get:
 	
 	command not found: java 
@@ -102,14 +102,13 @@ Now run the `java -version` again and check if the output is ok.
 Install [Composer](http://getcomposer.org) if you don't have it.
 
 Now in your `composer.json` file add:
-
-	{
-    	"require": {
-    		...
-        	"cossou/jasperphp": "dev-master",
-        	...
-    	}
-	}
+```javascript
+{
+    "require": {
+	"cossou/jasperphp": "dev-master",
+    }
+}
+```
 	
 And the just run:
 
@@ -120,10 +119,9 @@ and thats it.
 ###Using Laravel 4?
 
 Add to your `app/config/app.php` providers array:
-
-	...
-	'JasperPHP\JasperPHPServiceProvider',
-	
+```php
+'JasperPHP\JasperPHPServiceProvider',
+```	
 Now you will have the `JasperPHP` alias available.
 
 ###MySQL
