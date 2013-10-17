@@ -7,6 +7,13 @@ class JasperPHP
     protected $the_command;
     protected $redirect_output;
     protected $background;
+    protected $windows = false;
+
+    public __construct()
+    {
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
+           $this->windows = true;
+    }
 
     public static function __callStatic($method, $parameters)
     {
@@ -95,13 +102,14 @@ class JasperPHP
 
     public function execute()
     {
-        if( $this->redirect_output )
+        if( $this->redirect_output ) && !$this->windows)
             $this->the_command .= " > /dev/null 2>&1";
         
-        if( $this->background )
+        if( $this->background && !$this->windows )
             $this->the_command .= " &";
 
-        $output = array();
+        $output     = array();
+        $return_var = 0;
 
         exec($this->the_command, $output, $return_var);
 
