@@ -8,6 +8,7 @@ class JasperPHP
     protected $redirect_output;
     protected $background;
     protected $windows = false;
+    protected $formats = array('pdf', 'rtf', 'xls', 'xlsx', 'docx', 'odt', 'ods', 'pptx', 'csv', 'html', 'xhtml', 'xml', 'jrprint');
 
     function __construct()
     {
@@ -50,6 +51,15 @@ class JasperPHP
         if(is_null($input_file) || empty($input_file))
             throw new \Exception("No input file", 1);
 
+        if( is_array($format) )
+        {
+            foreach ($format as $key) 
+            {
+                if( !in_array($key, $this->formats))
+                    throw new \Exception("Invalid format!", 1);
+            }
+        }            
+    
         $command = __DIR__ . $this->executable;
         
         $command .= " pr ";
