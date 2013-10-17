@@ -58,7 +58,10 @@ class JasperPHP
                 if( !in_array($key, $this->formats))
                     throw new \Exception("Invalid format!", 1);
             }
-        }            
+        } else {
+            if( !in_array($format, $this->formats))
+                    throw new \Exception("Invalid format!", 1);
+        }        
     
         $command = __DIR__ . $this->executable;
         
