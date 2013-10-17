@@ -9,7 +9,7 @@ class JasperPHP
     protected $background;
     protected $windows = false;
 
-    public __construct()
+    function __construct()
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
            $this->windows = true;
@@ -102,7 +102,7 @@ class JasperPHP
 
     public function execute()
     {
-        if( $this->redirect_output ) && !$this->windows)
+        if( $this->redirect_output && !$this->windows)
             $this->the_command .= " > /dev/null 2>&1";
         
         if( $this->background && !$this->windows )
