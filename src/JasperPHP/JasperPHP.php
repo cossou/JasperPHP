@@ -5,6 +5,8 @@ class JasperPHP
 {
     protected $executable = "/../JasperStarter/bin/jasperstarter";
     protected $the_command;
+    protected $redirect_output;
+    protected $background;
 
     public static function __callStatic($method, $parameters)
     {
@@ -18,7 +20,7 @@ class JasperPHP
     public function compile($input_file, $output_file = false, $background = true, $redirect_output = true)
     {
         if(is_null($input_file) || empty($input_file))
-            throw new Exception("No input file", 1);
+            throw new \Exception("No input file", 1);
             
         $command = __DIR__ . $this->executable;
         
@@ -29,20 +31,17 @@ class JasperPHP
         if( $output_file !== false )
             $command .= " -o " . $output_file;
 
-        if( $redirect_output )
-            $command .= " > /dev/null 2>&1";
+        $this->redirect_output  = $redirect_output;
+        $this->background       = $background;
+        $this->the_command      = $command;
 
-        if( $background )
-            $command .= " &";
-
-        $this->the_command = $command;
         return $this;
     }
 
     public function process($input_file, $output_file = false, $format = array("pdf"), $parameters = array(), $db_connection = array(), $background = true, $redirect_output = true)
     {
         if(is_null($input_file) || empty($input_file))
-            throw new Exception("No input file", 1);
+            throw new \Exception("No input file", 1);
 
         $command = __DIR__ . $this->executable;
         
@@ -72,23 +71,20 @@ class JasperPHP
 
         if( count($db_connection) > 0 )
         {
-            $command .= " -t " . $db_connection['type'];
-            $command .= " -u " . $db_connection['user'];
+            $command .= " -t " . $db_connection['driver'];
+            $command .= " -u " . $db_connection['username'];
             
-            if( isset($db_connection['password']) )
+            if( isset($db_connection['password']) && !empty($db_connection['password']) )
                 $command .= " -p " . $db_connection['password'];
             
             $command .= " -H " . $db_connection['host'];
             $command .= " -n " . $db_connection['database'];
         }
         
-        if( $redirect_output )
-            $command .= " > /dev/null 2>&1";
+        $this->redirect_output  = $redirect_output;
+        $this->background       = $background;
+        $this->the_command      = $command;
 
-        if( $background )
-            $command .= " &";
-
-        $this->the_command = $command;
         return $this;
     }
 
@@ -99,6 +95,19 @@ class JasperPHP
 
     public function execute()
     {
-        return exec($this->the_command);
+        if( $this->redirect_output )
+            $this->the_command .= " > /dev/null 2>&1";
+        
+        if( $this->background )
+            $this->the_command .= " &";
+
+        $output = array();
+
+        exec($this->the_command, $output, $return_var);
+
+        if($return_var != 0) 
+            throw new \Exception("There was and error executing the report! Time to check the logs!", 1);
+
+        return $output;
     }
 }

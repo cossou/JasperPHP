@@ -6,6 +6,8 @@ use JasperPHP\JasperPHP;
 
 class jasperphpTest extends \PHPUnit_Framework_TestCase
 {
+    protected $executable = "/../JasperStarter/bin/jasperstarter";
+
     public function testCreateInstance()
     {
         $obj = new JasperPHP;
@@ -14,7 +16,23 @@ class jasperphpTest extends \PHPUnit_Framework_TestCase
 
     public function testJava()
     {
-        //TODO
+        exec('which java', $output, $returnVar);
+        if($returnVar != 0) {
+            return $this->assertTrue(false);
+        }
+        $this->assertTrue(true);
+    }
+
+    public function testJasperStarter()
+    {
+        $executable = __DIR__ . $this->executable . " -h";
+
+        exec($executable, $output, $returnVar);
+        
+        if($returnVar != 0) {
+            return $this->assertTrue(false);
+        }
+        $this->assertTrue(true);
     }
 
     public function testCompileException()
