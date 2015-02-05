@@ -29,7 +29,7 @@ class JasperPHP
     {
         if(is_null($input_file) || empty($input_file))
             throw new \Exception("No input file", 1);
-            
+
         $command = __DIR__ . $this->executable;
         
         $command .= " cp ";
@@ -93,14 +93,14 @@ class JasperPHP
         {
             $command .= " -t " . $db_connection['driver'];
             $command .= " -u " . $db_connection['username'];
-            
+    
             if( isset($db_connection['password']) && !empty($db_connection['password']) )
                 $command .= " -p " . $db_connection['password'];
-            
+
             $command .= " -H " . $db_connection['host'];
             $command .= " -n " . $db_connection['database'];
         }
-        
+
         $this->redirect_output  = $redirect_output;
         $this->background       = $background;
         $this->the_command      = $command;
@@ -113,13 +113,16 @@ class JasperPHP
         return $this->the_command;
     }
 
-    public function execute()
+    public function execute($run_as_user = false)
     {
         if( $this->redirect_output && !$this->windows)
             $this->the_command .= " > /dev/null 2>&1";
-        
+    
         if( $this->background && !$this->windows )
             $this->the_command .= " &";
+
+        if( $run_as_user !== false && strlen($run_as_user > 0) && !$this->windows )
+            $this->the_command = "su -u " . $run_as_user . " -c \"" . $this->the_command . "\"";
 
         $output     = array();
         $return_var = 0;
