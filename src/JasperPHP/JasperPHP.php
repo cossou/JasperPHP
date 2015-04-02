@@ -97,8 +97,17 @@ class JasperPHP
             if( isset($db_connection['password']) && !empty($db_connection['password']) )
                 $command .= " -p " . $db_connection['password'];
 
-            $command .= " -H " . $db_connection['host'];
-            $command .= " -n " . $db_connection['database'];
+            if( isset($db_connection['host']) && !empty($db_connection['host']) )
+                $command .= " -H " . $db_connection['host'];
+            
+            if( isset($db_connection['database']) && !empty($db_connection['database']) )
+                $command .= " -n " . $db_connection['database'];
+            
+            if( isset($db_connection['jdbc_driver']) && !empty($db_connection['jdbc_driver']) )
+                $command .= " --db-driver " . $db_connection['jdbc_driver'];
+            
+            if( isset($db_connection['jdbc_url']) && !empty($db_connection['jdbc_url']) )
+                $command .= " --db-url " . $db_connection['jdbc_url'];
         }
 
         $this->redirect_output  = $redirect_output;
