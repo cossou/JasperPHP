@@ -142,4 +142,40 @@ class JasperPHP
 
         return $output;
     }
+
+    /**
+     * Return list parameters from report
+     * @param string $filePath
+     * @throws \Exception
+     * @return array
+     */
+    public function listParameters($filePath, $run_as_user = false)
+    {
+        if (!$filePath) {
+            throw new \Exception('Path file empty');
+        }
+
+        if (!file_exists($filePath)) {
+            throw new \Exception('Report file not found [' . $filePath . ']');
+        }
+
+        $command = __DIR__ . $this->executable;
+        $command .= ' list_parameters ' . $filePath;
+
+        $this->redirect_output  = false;
+        $this->background       = false;
+        $this->the_command      = $command;
+
+        $parameters = array();
+        $response = $this->execute($run_as_user);
+
+        if ($response) {
+            foreach ($response as $param) {
+                $keywords = preg_split("/[\s,]+/", $param);
+                //P P_IDN_VEICULO java.lang.String
+                $parameters[] = array('name' => $keywords[1], 'type' => $keywords[2]);
+            }
+        }
+        return $parameters;
+    }
 }
