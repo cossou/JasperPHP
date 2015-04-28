@@ -69,15 +69,15 @@ Check the *API* of the  `compile` and `process` functions in the file `src/Jaspe
 **Retrieving parameters of the report**
 You can check what type of data that parameters have to kind of validation before. The reading can be done in .jasper or .jrxml file.
 
-Example:
-	$file = './vendor/cossou/jasperphp/examples/hello_world';
+**Example:**
 
+	$file = './vendor/cossou/jasperphp/examples/hello_world';
 	$jasper = new JasperPHP();
 	echo '<pre>';
 	print_r($jasper->listParameters($file . '.jrxml'));
 	print_r($jasper->listParameters($file . '.jasper'));
 
-Output:
+**Output:**
 	Array (
 		[0] => Array (
 			[name] => php_version
