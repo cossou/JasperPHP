@@ -134,7 +134,7 @@ class JasperPHP
         $output     = array();
         $return_var = 0;
 
-        $response = exec($this->the_command, $output, $return_var);
+        exec($this->the_command, $output, $return_var);
 
         if($return_var != 0) {
             throw new \Exception("There was and error executing the report! Time to check the logs!", 1);
@@ -172,7 +172,6 @@ class JasperPHP
         if ($response) {
             foreach ($response as $param) {
                 $keywords = preg_split("/[\s,]+/", $param);
-                //P P_IDN_VEICULO java.lang.String
                 $parameters[] = array('name' => $keywords[1], 'type' => $keywords[2]);
             }
         }
