@@ -31,7 +31,7 @@ class JasperPHP
             throw new \Exception("No input file", 1);
 
         $command = __DIR__ . $this->executable;
-        
+
         $command .= " cp ";
 
         $command .= $input_file;
@@ -53,7 +53,7 @@ class JasperPHP
 
         if( is_array($format) )
         {
-            foreach ($format as $key) 
+            foreach ($format as $key)
             {
                 if( !in_array($key, $this->formats))
                     throw new \Exception("Invalid format!", 1);
@@ -61,10 +61,10 @@ class JasperPHP
         } else {
             if( !in_array($format, $this->formats))
                     throw new \Exception("Invalid format!", 1);
-        }        
-    
+        }
+
         $command = __DIR__ . $this->executable;
-        
+
         $command .= " pr ";
 
         $command .= $input_file;
@@ -83,22 +83,29 @@ class JasperPHP
         if( count($parameters) > 0 )
         {
             $command .= " -P";
-            foreach ($parameters as $key => $value) 
+            foreach ($parameters as $key => $value)
             {
                 $command .= " " . $key . "=" . $value;
             }
-        }    
+        }
 
         if( count($db_connection) > 0 )
         {
             $command .= " -t " . $db_connection['driver'];
             $command .= " -u " . $db_connection['username'];
-    
+
             if( isset($db_connection['password']) && !empty($db_connection['password']) )
                 $command .= " -p " . $db_connection['password'];
 
             $command .= " -H " . $db_connection['host'];
             $command .= " -n " . $db_connection['database'];
+
+            if (isset($db_connection['jdbc-dir'])) {
+                $command .= ' --jdbc-dir ' . $db_connection['jdbc-dir'];
+            }
+            if (isset($db_connection['db-sid'])) {
+                $command .= ' --db-sid ' . $db_connection['db-sid'];
+            }
         }
 
         $this->redirect_output  = $redirect_output;
@@ -117,7 +124,7 @@ class JasperPHP
     {
         if( $this->redirect_output && !$this->windows)
             $this->the_command .= " > /dev/null 2>&1";
-    
+
         if( $this->background && !$this->windows )
             $this->the_command .= " &";
 
@@ -127,11 +134,48 @@ class JasperPHP
         $output     = array();
         $return_var = 0;
 
-        exec($this->the_command, $output, $return_var);
+        $response = exec($this->the_command, $output, $return_var);
 
-        if($return_var != 0) 
+        if($return_var != 0) {
             throw new \Exception("There was and error executing the report! Time to check the logs!", 1);
+        }
 
         return $output;
+    }
+
+    /**
+     * Return list parameters from report
+     * @param string $filePath
+     * @throws \Exception
+     * @return array
+     */
+    public function listParameters($filePath, $run_as_user = false)
+    {
+        if (!$filePath) {
+            throw new \Exception('Path file empty');
+        }
+
+        if (!file_exists($filePath)) {
+            throw new \Exception('Report file not found [' . $filePath . ']');
+        }
+
+        $command = __DIR__ . $this->executable;
+        $command .= ' list_parameters ' . $filePath;
+
+        $this->redirect_output  = false;
+        $this->background       = false;
+        $this->the_command      = $command;
+
+        $parameters = array();
+        $response = $this->execute($run_as_user);
+
+        if ($response) {
+            foreach ($response as $param) {
+                $keywords = preg_split("/[\s,]+/", $param);
+                //P P_IDN_VEICULO java.lang.String
+                $parameters[] = array('name' => $keywords[1], 'type' => $keywords[2]);
+            }
+        }
+        return $parameters;
     }
 }
