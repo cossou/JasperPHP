@@ -172,7 +172,14 @@ class JasperPHP
         if ($response) {
             foreach ($response as $param) {
                 $keywords = preg_split("/[\s,]+/", $param);
-                $parameters[] = array('name' => $keywords[1], 'type' => $keywords[2]);
+                $initDescription = strlen($keywords[0]) + strlen($keywords[1]) + strlen($keywords[2]) + 3;
+
+                $parameters[] = array(
+                                      'prompt' => $keywords[0],
+                                      'name'   => $keywords[1],
+                                      'type'   => $keywords[2],
+                                      'description' => substr($param, $initDescription)
+                                );
             }
         }
         return $parameters;
