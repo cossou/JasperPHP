@@ -108,6 +108,9 @@ class JasperPHP
             
             if( isset($db_connection['jdbc_url']) && !empty($db_connection['jdbc_url']) )
                 $command .= " --db-url " . $db_connection['jdbc_url'];
+
+            if( isset($db_connection['jdbc_dir']) && !empty($db_connection['jdbc_dir']) )
+                $command .= " --jdbc-dir " . $db_connection['jdbc_dir'];
         }
 
         $this->redirect_output  = $redirect_output;
