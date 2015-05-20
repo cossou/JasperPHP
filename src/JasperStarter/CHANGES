@@ -2,7 +2,15 @@
 JasperStarter - Running JasperReports from command line
 ========================================================
 
+Release Notes - JasperStarter - Version 2.2.2
+----------------------------------------------
+
+** Bug
+    * [JAS-63] - Version 2.2 WindowsSetup replace the path variable
+
+
 Release Notes - JasperStarter - Version 2.2.1
+----------------------------------------------
 
 ** Bug
     * [JAS-58] - DB type generic should not require a username
