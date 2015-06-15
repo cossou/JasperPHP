@@ -78,7 +78,7 @@ class JasperPHP
             $command .= " -f " . $format;
 
         // Resources dir
-        if( is_null($resource) || empty($resource) )
+        if( !is_null($resource) || !empty($resource) )
             $command .= " -r " . $resource;
         else
             $command .= " -r " . __DIR__ . "/../../../../../";
