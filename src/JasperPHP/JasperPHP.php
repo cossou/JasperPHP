@@ -146,7 +146,7 @@ class JasperPHP
         $output     = array();
         $return_var = 0;
 
-        exec($this->the_command, $output, $return_var);
+        exec(escapeshellcmd($this->the_command), $output, $return_var);
 
         if($return_var != 0) 
             throw new \Exception("There was and error executing the report! Time to check the logs!", 1);
