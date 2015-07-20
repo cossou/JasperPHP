@@ -9,11 +9,21 @@ class JasperPHP
     protected $background;
     protected $windows = false;
     protected $formats = array('pdf', 'rtf', 'xls', 'xlsx', 'docx', 'odt', 'ods', 'pptx', 'csv', 'html', 'xhtml', 'xml', 'jrprint');
+    protected $resource_directory; // Path to report resource dir or jar file
 
-    function __construct()
+    function __construct($resource_dir = false)
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
            $this->windows = true;
+           
+        if (!$resource_dir) {
+            $this->resource_directory = __DIR__ . "/../../../../../";
+        }else {
+            if (!file_exists($resource_dir))
+                throw new \Exception("Invalid resource directory", 1);
+
+            $this->resource_directory = $resource_dir;
+        }
     }
 
     public static function __callStatic($method, $parameters)
@@ -78,7 +88,7 @@ class JasperPHP
             $command .= " -f " . $format;
 
         // Resources dir
-        $command .= " -r " . __DIR__ . "/../../../../../";
+        $command .= " -r " . $this->resource_directory;
 
         if( count($parameters) > 0 )
         {
