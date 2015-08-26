@@ -64,6 +64,18 @@ Now check the examples folder! :) Great right? You now have 2 files, `hello_worl
 
 Check the *API* of the  `compile` and `process` functions in the file `src/JasperPHP/JasperPHP.php` file.
 
+####Listing Parameters
+
+Querying the jasper file to examine parameters available in the given jasper report file:
+
+	$output = JasperPHP::list_parameters(
+			base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jasper'
+		)->execute();
+	
+	foreach($output as $parameter_description) {
+		echo $parameter_description;
+	}
+
 ###Advanced example
 
 TODO.
