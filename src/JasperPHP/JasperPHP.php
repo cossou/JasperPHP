@@ -126,6 +126,22 @@ class JasperPHP
 
         return $this;
     }
+    
+    public function list_parameters($input_file)
+    {
+        if(is_null($input_file) || empty($input_file))
+            throw new \Exception("No input file", 1);
+
+        $command = __DIR__ . $this->executable;
+
+        $command .= " lpa ";
+
+        $command .= $input_file;
+
+        $this->the_command = $command;
+
+        return $this;
+    }
 
     public function output()
     {
