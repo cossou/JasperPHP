@@ -18,7 +18,7 @@ It has the following features:
   * Optionally show printer dialog to choose printer
   * Optionally show printpreview
   * Export to file in the following formats:
-    * pdf, rtf, xls, xlsx, docx, odt, ods, pptx, csv, html, xhtml, xml, jrprint
+    * pdf, rtf, xls, xlsMeta, xlsx, docx, odt, ods, pptx, csv, csvMeta, html, xhtml, xml, jrprint
   * Export multiple formats in one commanding call
   * Compile, Print and export in one commanding call
   * View, print or export previously filled reports (use jrprint file as input)
@@ -148,7 +148,7 @@ JasperStarter from within your IDE to call up a database based report.
 
 ### License
 
-Copyright 2012, 2013, 2014 Cenote GmbH.
+Copyright 2012-2015 Cenote GmbH.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
