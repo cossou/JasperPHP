@@ -66,7 +66,23 @@ Check the *API* of the  `compile` and `process` functions in the file `src/Jaspe
 
 ###Advanced example
 
-TODO.
+We can also specify parameters for connecting to database:
+
+```php
+JasperPHP::process(
+    base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jasper',
+    false,
+    array("pdf", "rtf"),
+    array("php_version" => phpversion()),
+    array(
+      'driver' => 'postgres',
+      'username' => 'vagrant',
+      'host' => 'localhost',
+      'database' => 'samples',
+      'port' => '5433',
+    )
+  )->execute();
+```
 
 ##Requirements
 
