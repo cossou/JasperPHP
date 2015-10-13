@@ -43,7 +43,9 @@ First we need to compile our `JRXML` file into a `JASPER` binary file. We just h
 
 **Note:** You don't need to do this step if you are using *Jaspersoft Studio*. You can compile directly within the program.
 
-	JasperPHP::compile(base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jrxml')->execute();
+```php
+JasperPHP::compile(base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jrxml')->execute();
+```
 
 This commando will compile the `hello_world.jrxml` source file to a `hello_world.jasper` file.
 
@@ -112,12 +114,14 @@ JasperPHP::process(
 ###Java
 
 Check if you already have Java installed:
-```java
-	$ java -version
-	java version "1.6.0_51"
-	Java(TM) SE Runtime Environment (build 1.6.0_51-b11-457-11M4509)
-	Java HotSpot(TM) 64-Bit Server VM (build 20.51-b01-457, mixed mode)
+
 ```
+$ java -version
+java version "1.6.0_51"
+Java(TM) SE Runtime Environment (build 1.6.0_51-b11-457-11M4509)
+Java HotSpot(TM) 64-Bit Server VM (build 20.51-b01-457, mixed mode)
+```
+
 If you get:
 
 	command not found: java
@@ -181,6 +185,7 @@ Route::get('/', function () {
 ###Using Laravel 4?
 
 Add to your `app/config/app.php` providers array:
+
 ```php
 'JasperPHP\JasperPHPServiceProvider',
 ```
