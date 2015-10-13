@@ -18,7 +18,7 @@ It has the following features:
   * Optionally show printer dialog to choose printer
   * Optionally show printpreview
   * Export to file in the following formats:
-    * pdf, rtf, xls, xlsx, docx, odt, ods, pptx, csv, html, xhtml, xml, jrprint
+    * pdf, rtf, xls, xlsMeta, xlsx, docx, odt, ods, pptx, csv, csvMeta, html, xhtml, xml, jrprint
   * Export multiple formats in one commanding call
   * Compile, Print and export in one commanding call
   * View, print or export previously filled reports (use jrprint file as input)
@@ -92,7 +92,24 @@ If you like the software you can write a [review][] :-)
 The sourcecode is available at [bitbucket.org/cenote/jasperstarter][], the
 project website is hosted at [Sourceforge][].
 
-JasperStarter is build with [Maven][]. To get a distribution package run:
+JasperStarter is build with [Maven][]. 
+
+Unfortunately one dependency (jasperreports-functions) is not provided
+in a public maven repository so you must add it to your local maven
+repo:
+
+    # Download jasperreports-functions-6.0.4.jar from
+    # https://sourceforge.net/projects/jasperreports/files/jasperreports/
+    $ jar xvf jasperreports-functions-6.0.4.jar META-INF/maven/net.sf.jasperreports/jasperreports-functions/pom.xml
+    $ mvn install:install-file -Dfile=jasperreports-functions-6.0.4.jar -DpomFile=META-INF/maven/net.sf.jasperreports/jasperreports-functions/pom.xml
+
+See https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html
+
+It is possible to compile JasperStarter without this dependency but users
+will run into errors if they use specific functions in their reports.
+So there is a test that fails if jasperreports-functions is not available.
+
+To get a distribution package run:
 
     $ mvn package -P release
 
@@ -148,7 +165,7 @@ JasperStarter from within your IDE to call up a database based report.
 
 ### License
 
-Copyright 2012, 2013, 2014 Cenote GmbH.
+Copyright 2012-2015 Cenote GmbH.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

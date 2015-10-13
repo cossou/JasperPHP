@@ -2,7 +2,46 @@
 JasperStarter - Running JasperReports from command line
 ========================================================
 
+Release Notes - JasperStarter - Version 3.0.0
+---------------------------------------------
+
+This Release works with Java8.
+
+** Bug
+    * [JAS-69] - Calls of assertEquals have the arguments actual and
+                 expected interchanged 
+    * [JAS-70] - Example report csv.jrxml truncates data 
+    * [JAS-80] - jasperstarter by default is missing some important
+                 jasper studio builtin libraries 
+    * [JAS-81] - Eclipse compiler error when running using Java 8
+
+** Improvement
+    * [JAS-68] - Expand documentation with calls of running the
+                 example reports 
+
+** New Feature
+    * [JAS-67] - Ability to produce CSV Metadata reports
+    * [JAS-72] - Ability to produce XLS Metadata reports
+
+** Task
+    * [JAS-57] - Switching from Mercurial to Git
+    * [JAS-59] - Include JasperReports 6.0.0
+    * [JAS-61] - update dependencies
+    * [JAS-65] - Include JasperReports 6.0.2
+    * [JAS-66] - Include JasperReports 6.0.3
+    * [JAS-76] - Git version and revision information in manifest file
+    * [JAS-79] - Include JasperReports 6.0.4
+
+
+Release Notes - JasperStarter - Version 2.2.2
+----------------------------------------------
+
+** Bug
+    * [JAS-63] - Version 2.2 WindowsSetup replace the path variable
+
+
 Release Notes - JasperStarter - Version 2.2.1
+----------------------------------------------
 
 ** Bug
     * [JAS-58] - DB type generic should not require a username
