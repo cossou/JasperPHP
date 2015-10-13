@@ -1,14 +1,14 @@
-# JasperReports for PHP 
+# JasperReports for PHP
 
 Package to generate reports with [JasperReports](http://community.jaspersoft.com/project/jasperreports-library) library through [JasperStarter](http://jasperstarter.sourceforge.net/) command-line tool.
 
 ##Introduction
 
-This package aims to be a solution to compile and process JasperReports (.jrxml & .jasper files). 
+This package aims to be a solution to compile and process JasperReports (.jrxml & .jasper files).
 
 ###Why?
 
-Did you ever had to create a good looking Invoice with a lot of fields for your great web app? 
+Did you ever had to create a good looking Invoice with a lot of fields for your great web app?
 
 I had to, and the solutions out there were not perfect. Generating *HTML* + *CSS* to make a *PDF*? WTF? That doesn't make any sense! :)
 
@@ -16,13 +16,13 @@ Then I found **JasperReports** the best open source solution for reporting.
 
 ###What can I do with this?
 
-Well, everything. JasperReports is a powerful tool for **reporting** and **BI**. 
+Well, everything. JasperReports is a powerful tool for **reporting** and **BI**.
 
 **From their website:**
 
 > The JasperReports Library is the world's most popular open source reporting engine. It is entirely written in Java and it is able to use data coming from any kind of data source and produce pixel-perfect documents that can be viewed, printed or exported in a variety of document formats including HTML, PDF, Excel, OpenOffice and Word.
 
-I recommend you to use [iReports designer](http://community.jaspersoft.com/project/ireport-designer) to build your reports, connect it to your datasource (ex: MySQL), loop thru the results and output it to PDF, XLS, DOC, RTF, ODF, etc.
+I recommend using [Jaspersoft Studio](http://community.jaspersoft.com/project/jaspersoft-studio) to build your reports, connect it to your datasource (ex: MySQL), loop thru the results and output it to PDF, XLS, DOC, RTF, ODF, etc.
 
 *Some examples of what you can do:*
 
@@ -39,9 +39,9 @@ Open the `hello_world.jrxml` file with iReport or with your favorite text editor
 
 #### Compiling
 
-First we need to compile our `JRXML` file into a `JASPER` binary file. We just have to do this one time. 
+First we need to compile our `JRXML` file into a `JASPER` binary file. We just have to do this one time.
 
-**Note:** You don't need to do this step if you are using *iReport Designer*. You can compile directly within the program.
+**Note:** You don't need to do this step if you are using *Jaspersoft Studio*. You can compile directly within the program.
 
 	JasperPHP::compile(base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jrxml')->execute();
 
@@ -51,12 +51,12 @@ This commando will compile the `hello_world.jrxml` source file to a `hello_world
 
 ####Processing
 
-Now lets process the report that we compile before: 
+Now lets process the report that we compile before:
 
 	JasperPHP::process(
-		base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jasper', 
-		false, 
-		array("pdf", "rtf"), 
+		base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jasper',
+		false,
+		array("pdf", "rtf"),
 		array("php_version" => phpversion())
 	)->execute();
 
@@ -71,7 +71,7 @@ Querying the jasper file to examine parameters available in the given jasper rep
 	$output = JasperPHP::list_parameters(
 			base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jasper'
 		)->execute();
-	
+
 	foreach($output as $parameter_description) {
 		echo $parameter_description;
 	}
@@ -100,8 +100,8 @@ JasperPHP::process(
 
 * Java JDK 1.6
 * PHP [exec()](http://php.net/manual/function.exec.php) function
-* [optional] [Mysql Connector](http://dev.mysql.com/downloads/connector/j/) (if you want to use database) 
-* [optional] [iReports](http://community.jaspersoft.com/project/ireport-designer) (to draw and compile your reports) 
+* [optional] [Mysql Connector](http://dev.mysql.com/downloads/connector/j/) (if you want to use database)
+* [optional] [Jaspersoft Studio](http://community.jaspersoft.com/project/jaspersoft-studio) (to draw and compile your reports) 
 
 
 ##Installation
@@ -109,15 +109,15 @@ JasperPHP::process(
 ###Java
 
 Check if you already have Java installed:
-```java	
+```java
 	$ java -version
 	java version "1.6.0_51"
 	Java(TM) SE Runtime Environment (build 1.6.0_51-b11-457-11M4509)
 	Java HotSpot(TM) 64-Bit Server VM (build 20.51-b01-457, mixed mode)
 ```
 If you get:
-	
-	command not found: java 
+
+	command not found: java
 
 Then install it with: (Ubuntu/Debian)
 
@@ -137,19 +137,19 @@ Now in your `composer.json` file add:
     }
 }
 ```
-	
+
 And the just run:
 
 	composer update
 
-and thats it.	
+and thats it.
 
 ###Using Laravel 4?
 
 Add to your `app/config/app.php` providers array:
 ```php
 'JasperPHP\JasperPHPServiceProvider',
-```	
+```
 Now you will have the `JasperPHP` alias available.
 
 ###MySQL
