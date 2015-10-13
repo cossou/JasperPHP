@@ -2,6 +2,12 @@
 
 Package to generate reports with [JasperReports 6](http://community.jaspersoft.com/project/jasperreports-library) library through [JasperStarter v3](http://jasperstarter.sourceforge.net/) command-line tool.
 
+##Install
+
+```
+composer require cossou/jasperphp:2.0.*
+```
+
 ##Introduction
 
 This package aims to be a solution to compile and process JasperReports (.jrxml & .jasper files).
@@ -136,11 +142,16 @@ Now run the `java -version` again and check if the output is ok.
 
 Install [Composer](http://getcomposer.org) if you don't have it.
 
-Now in your `composer.json` file add:
+```
+composer require cossou/jasperphp:2.0.*
+```
+
+Or in your `composer.json` file add:
+
 ```javascript
 {
     "require": {
-		"cossou/jasperphp": "dev-master",
+		"cossou/jasperphp": "2.0.*",
     }
 }
 ```
