@@ -112,6 +112,9 @@ class JasperPHP
             
             if( isset($db_connection['database']) && !empty($db_connection['database']) )
                 $command .= " -n " . $db_connection['database'];
+                
+            if( isset($db_connection['port']) && !empty($db_connection['port']) )
+                $command .= " --db-port " . $db_connection['port'];
             
             if( isset($db_connection['jdbc_driver']) && !empty($db_connection['jdbc_driver']) )
                 $command .= " --db-driver " . $db_connection['jdbc_driver'];
