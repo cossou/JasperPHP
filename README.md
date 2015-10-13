@@ -53,12 +53,14 @@ This commando will compile the `hello_world.jrxml` source file to a `hello_world
 
 Now lets process the report that we compile before:
 
-	JasperPHP::process(
-		base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jasper',
-		false,
-		array("pdf", "rtf"),
-		array("php_version" => phpversion())
-	)->execute();
+```php
+JasperPHP::process(
+	base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jasper',
+	false,
+	array("pdf", "rtf"),
+	array("php_version" => phpversion())
+)->execute();
+```
 
 Now check the examples folder! :) Great right? You now have 2 files, `hello_world.pdf` and `hello_world.rtf`.
 
@@ -68,13 +70,14 @@ Check the *API* of the  `compile` and `process` functions in the file `src/Jaspe
 
 Querying the jasper file to examine parameters available in the given jasper report file:
 
-	$output = JasperPHP::list_parameters(
-			base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jasper'
-		)->execute();
+```php
+$output = JasperPHP::list_parameters(
+		base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jasper'
+	)->execute();
 
-	foreach($output as $parameter_description) {
-		echo $parameter_description;
-	}
+foreach($output as $parameter_description)
+	echo $parameter_description;
+```
 
 ###Advanced example
 
@@ -133,7 +136,7 @@ Now in your `composer.json` file add:
 ```javascript
 {
     "require": {
-	"cossou/jasperphp": "dev-master",
+		"cossou/jasperphp": "dev-master",
     }
 }
 ```
@@ -196,7 +199,6 @@ We ship the [PostgreSQL](https://jdbc.postgresql.org/) (v9.4-1203) in the `/src/
 Depends on the complexity, amount of data and the resources of your machine (let me know your use case).
 
 I have a report that generates a *Invoice* with a DB connection, images and multiple pages and it takes about **3/4 seconds** to process. I suggest that you use a worker to generate the reports in the background.
-
 
 ##Thanks
 
