@@ -1,6 +1,6 @@
 # JasperReports for PHP
 
-Package to generate reports with [JasperReports](http://community.jaspersoft.com/project/jasperreports-library) library through [JasperStarter](http://jasperstarter.sourceforge.net/) command-line tool.
+Package to generate reports with [JasperReports 6](http://community.jaspersoft.com/project/jasperreports-library) library through [JasperStarter v3](http://jasperstarter.sourceforge.net/) command-line tool.
 
 ##Introduction
 
@@ -101,7 +101,7 @@ JasperPHP::process(
 * Java JDK 1.6
 * PHP [exec()](http://php.net/manual/function.exec.php) function
 * [optional] [Mysql Connector](http://dev.mysql.com/downloads/connector/j/) (if you want to use database)
-* [optional] [Jaspersoft Studio](http://community.jaspersoft.com/project/jaspersoft-studio) (to draw and compile your reports) 
+* [optional] [Jaspersoft Studio](http://community.jaspersoft.com/project/jaspersoft-studio) (to draw and compile your reports)
 
 
 ##Installation
@@ -144,6 +144,37 @@ And the just run:
 
 and thats it.
 
+###Using Laravel 5?
+
+We don't provide a specific package for L5 but you can easily use JasperPHP.
+
+```php
+use JasperPHP\JasperPHP as JasperPHP;
+
+Route::get('/', function () {
+
+    $jasper = new JasperPHP;
+
+	// Compile a JRXML to Jasper
+    $jasper->compile(__DIR__ . '/../../vendor/cossou/jasperphp/examples/hello_world.jrxml')->execute();
+
+	// Process a Jasper file to PDF and RTF (you can use directly the .jrxml)
+    $jasper->process(
+        __DIR__ . '/../../vendor/cossou/jasperphp/examples/hello_world.jasper',
+        false,
+        array("pdf", "rtf"),
+        array("php_version" => "xxx")
+    )->execute();
+
+	// List the parameters from a Jasper file.
+    $array = $jasper->list_parameters(
+        __DIR__ . '/../../vendor/cossou/jasperphp/examples/hello_world.jasper'
+    )->execute();
+
+    return view('welcome');
+});
+```
+
 ###Using Laravel 4?
 
 Add to your `app/config/app.php` providers array:
@@ -154,13 +185,17 @@ Now you will have the `JasperPHP` alias available.
 
 ###MySQL
 
-If you want to use MySQL in your report datasource, please add the `JAR` to the `/src/JasperStarter/jdbc/` directory. Download it [here](http://dev.mysql.com/downloads/connector/j/).
+We ship the [MySQL connector](http://dev.mysql.com/downloads/connector/j/) (v5.1.34) in the `/src/JasperStarter/jdbc/` directory.
+
+###PostgreSQL
+
+We ship the [PostgreSQL](https://jdbc.postgresql.org/) (v9.4-1203) in the `/src/JasperStarter/jdbc/` directory.
 
 ##Performance
 
 Depends on the complexity, amount of data and the resources of your machine (let me know your use case).
 
-I have a report that generates a *Invoice* with a DB connection, images and multiple pages and it takes about **3/4 seconds** to process. I suggest that you use the [Laravel 4 Queue](#) feature.
+I have a report that generates a *Invoice* with a DB connection, images and multiple pages and it takes about **3/4 seconds** to process. I suggest that you use a worker to generate the reports in the background.
 
 
 ##Thanks
@@ -170,7 +205,6 @@ Thanks to [Cenote GmbH](http://www.cenote.de/) for the [JasperStarter](http://ja
 ##Questions?
 
 Drop me a line on Twitter [@cossou](https://twitter.com/cossou).
-
 
 ##License
 
