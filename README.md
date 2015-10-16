@@ -5,7 +5,7 @@ Package to generate reports with [JasperReports 6](http://community.jaspersoft.c
 ##Install
 
 ```
-composer require cossou/jasperphp:2.1.*
+composer require cossou/jasperphp
 ```
 
 ##Introduction
@@ -143,7 +143,7 @@ Now run the `java -version` again and check if the output is ok.
 Install [Composer](http://getcomposer.org) if you don't have it.
 
 ```
-composer require cossou/jasperphp:2.1.*
+composer require cossou/jasperphp
 ```
 
 Or in your `composer.json` file add:
@@ -151,7 +151,7 @@ Or in your `composer.json` file add:
 ```javascript
 {
     "require": {
-		"cossou/jasperphp": "2.1.*",
+		"cossou/jasperphp": "~2",
     }
 }
 ```
