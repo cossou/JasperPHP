@@ -9,11 +9,21 @@ class JasperPHP
     protected $background;
     protected $windows = false;
     protected $formats = array('pdf', 'rtf', 'xls', 'xlsx', 'docx', 'odt', 'ods', 'pptx', 'csv', 'html', 'xhtml', 'xml', 'jrprint');
+    protected $resource_directory; // Path to report resource dir or jar file
 
-    function __construct()
+    function __construct($resource_dir = false)
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
            $this->windows = true;
+
+        if (!$resource_dir) {
+            $this->resource_directory = __DIR__ . "/../../../../../";
+        } else {
+            if (!file_exists($resource_dir))
+                throw new \Exception("Invalid resource directory", 1);
+
+            $this->resource_directory = $resource_dir;
+        }
     }
 
     public static function __callStatic($method, $parameters)
@@ -32,7 +42,7 @@ class JasperPHP
 
         $command = __DIR__ . $this->executable;
 
-        $command .= " cp ";
+        $command .= " compile ";
 
         $command .= $input_file;
 
@@ -41,7 +51,7 @@ class JasperPHP
 
         $this->redirect_output  = $redirect_output;
         $this->background       = $background;
-        $this->the_command      = $command;
+        $this->the_command      = escapeshellcmd($command);
 
         return $this;
     }
@@ -75,7 +85,7 @@ class JasperPHP
           }
         }
 
-        $command .= " pr ";
+        $command .= " process ";
 
         $command .= $input_file;
 
@@ -88,7 +98,7 @@ class JasperPHP
             $command .= " -f " . $format;
 
         // Resources dir
-        $command .= " -r " . __DIR__ . "/../../../../../";
+        $command .= " -r " . $this->resource_directory;
 
         if( count($parameters) > 0 )
         {
@@ -122,18 +132,41 @@ class JasperPHP
 
             if( isset($db_connection['jdbc_url']) && !empty($db_connection['jdbc_url']) )
                 $command .= " --db-url " . $db_connection['jdbc_url'];
+
+            if ( isset($db_connection['jdbc_dir']) && !empty($db_connection['jdbc_dir']) )
+                $command .= ' --jdbc-dir ' . $db_connection['jdbc_dir'];
+
+            if ( isset($db_connection['db_sid']) && !empty($db_connection['db_sid']) )
+                $command .= ' --db-sid ' . $db_connection['db_sid'];
+
         }
 
         $this->redirect_output  = $redirect_output;
         $this->background       = $background;
-        $this->the_command      = $command;
+        $this->the_command      = escapeshellcmd($command);
+
+        return $this;
+    }
+
+    public function list_parameters($input_file)
+    {
+        if(is_null($input_file) || empty($input_file))
+            throw new \Exception("No input file", 1);
+
+        $command = __DIR__ . $this->executable;
+
+        $command .= " list_parameters ";
+
+        $command .= $input_file;
+
+        $this->the_command = escapeshellcmd($command);
 
         return $this;
     }
 
     public function output()
     {
-        return $this->the_command;
+        return escapeshellcmd($this->the_command);
     }
 
     public function execute($run_as_user = false)
@@ -153,7 +186,7 @@ class JasperPHP
         exec($this->the_command, $output, $return_var);
 
         if($return_var != 0)
-            throw new \Exception("There was and error executing the report! Time to check the logs!", 1);
+            throw new \Exception("Your report has an error and couldn't be processed! Try to output the command using the function `output();` and run it manually in the console.", 1);
 
         return $output;
     }
