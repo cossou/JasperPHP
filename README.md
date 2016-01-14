@@ -210,6 +210,8 @@ We ship the [MySQL connector](http://dev.mysql.com/downloads/connector/j/) (v5.1
 
 We ship the [PostgreSQL](https://jdbc.postgresql.org/) (v9.4-1203) in the `/src/JasperStarter/jdbc/` directory.
 
+Note: Laravel uses `pgsql` driver name instead of `postgres`. 
+
 ##Performance
 
 Depends on the complexity, amount of data and the resources of your machine (let me know your use case).
