@@ -144,6 +144,9 @@ class JasperPHP
             if (isset($db_connection['csv_charset']) && !empty($db_connection['csv_charset']))
                 $command .= ' --csv-charset ' . $db_connection['csv_charset'];
 
+            if (isset($db_connection['xml_xpath']) && !empty($db_connection['xml_xpath']))
+                $command .= ' --xml-xpath ' . $db_connection['xml_xpath'];
+
         }
 
         $this->redirect_output = $redirect_output;
