@@ -166,8 +166,8 @@ class JasperPHP
         if( $this->background && !$this->windows )
             $this->the_command .= " &";
 
-        if( $run_as_user !== false && strlen($run_as_user > 0) && !$this->windows )
-            $this->the_command = "su -u " . $run_as_user . " -c \"" . $this->the_command . "\"";
+        if( $run_as_user !== false && strlen($run_as_user) > 0 && !$this->windows )
+            $this->the_command = "su -c \"{$this->the_command}\" {$run_as_user}";
 
         $output     = array();
         $return_var = 0;
