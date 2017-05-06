@@ -11,8 +11,8 @@ class JasperPHP
     protected $formats = array('pdf', 'rtf', 'xls', 'xlsx', 'docx', 'odt', 'ods', 'pptx', 'csv', 'html', 'xhtml', 'xml', 'jrprint');
     protected $resource_directory; // Path to report resource dir or jar file
 
-    function __construct($resource_dir = false)
-    {
+    function __construct($resource_dir = false, $locale = false)
+    {        
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
            $this->windows = true;
 
@@ -24,6 +24,9 @@ class JasperPHP
 
             $this->resource_directory = $resource_dir;
         }
+
+        if($locale)
+            $this->executable.=' --locale='.$locale;
     }
 
     public static function __callStatic($method, $parameters)
