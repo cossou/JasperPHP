@@ -164,8 +164,43 @@ and thats it.
 
 ### Using Laravel 5?
 
-We don't provide a specific package for L5 but you can easily use JasperPHP.
+Add `JasperPHP\JasperPHPServiceProvider::class` to config `config/app.php` in service provider
 
+File `config/app.php`
+
+```php
+<?php 
+.......
+.......
+'providers' => [
+    .......
+    Illuminate\Translation\TranslationServiceProvider::class,
+    Illuminate\Validation\ValidationServiceProvider::class,
+    Illuminate\View\ViewServiceProvider::class,
+    //insert jasper service provider here 
+    JasperPHP\JasperPHPServiceProvider::class
+],
+......
+......
+
+```
+
+Uses in Controller by add `use JasperPHP` after namespace
+```php
+<?php
+namespace App\Http\Controllers;
+use JasperPHP; // put here
+......
+......
+    public function generateReport()
+    {        
+        //jasper ready to call
+        JasperPHP::compile(base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jrxml')->execute();
+    }
+......    
+```
+
+Uses in Route
 ```php
 use JasperPHP\JasperPHP as JasperPHP;
 
