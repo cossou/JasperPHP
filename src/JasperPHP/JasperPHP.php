@@ -172,7 +172,7 @@ class JasperPHP
         $output     = array();
         $return_var = 0;
 
-        exec($this->the_command, $output, $return_var);
+        exec($this->the_command .' 2>&1' , $output, $return_var);
 
         if( $return_var != 0 && isset($output[0]) )
             throw new \Exception($output[0], 1);
