@@ -161,7 +161,7 @@ class JasperPHP
     public function execute($run_as_user = false)
     {
         if( $this->redirect_output && !$this->windows)
-            $this->the_command .= " > /dev/null 2>&1";
+            $this->the_command .= " 2>&1";
 
         if( $this->background && !$this->windows )
             $this->the_command .= " &";
@@ -174,9 +174,12 @@ class JasperPHP
 
         exec($this->the_command, $output, $return_var);
 
-        if($return_var != 0)
+        if( $return_var != 0 && isset($output[0]) )
+            throw new \Exception($output[0], 1);
+        
+        elseif( $return_var != 0 ) 
             throw new \Exception("Your report has an error and couldn't be processed! Try to output the command using the function `output();` and run it manually in the console.", 1);
-
+        
         return $output;
     }
 }
