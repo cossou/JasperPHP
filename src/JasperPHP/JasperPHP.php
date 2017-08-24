@@ -56,7 +56,7 @@ class JasperPHP
         return $this;
     }
 
-    public function process($input_file, $output_file = false, $format = array("pdf"), $parameters = array(), $db_connection = array(), $locale = false, $background = true, $redirect_output = true)
+    public function process($input_file, $output_file = false, $format = array("pdf"), $parameters = array(), $db_connection = array(), $locale = false, $resourceDir = false, $background = true, $redirect_output = true)
     {
         if(is_null($input_file) || empty($input_file))
             throw new \Exception("No input file", 1);
@@ -90,7 +90,8 @@ class JasperPHP
             $command .= " -f " . $format;
 
         // Resources dir
-        $command .= " -r " . $this->resource_directory;
+        if (empty($resourceDir)) $resourceDir = $this->resource_directory;
+        $command .= " -r " . $resourceDir;
 
         if( count($parameters) > 0 )
         {
