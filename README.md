@@ -247,6 +247,73 @@ We ship the [PostgreSQL](https://jdbc.postgresql.org/) (v9.4-1203) in the `/src/
 
 Note: Laravel uses `pgsql` driver name instead of `postgres`. 
 
+### JSON
+
+Source file example:
+
+```json
+{
+ "result":{
+             "id":26,
+             "reference":"0051711080021460005",
+	     "account_id":1,
+	     "user_id":2,
+	     "date":"2017-11-08 00:21:46",
+	     "type":"",
+	     "gross":138,
+	     "discount":0,
+	     "tax":4.08,
+	     "nett":142.08, 
+	     "details":[
+	              {"id":26, "line": 1, "product_id": 26 },
+		   ]
+	    },
+  "options":{ 
+        "category":[
+                {"id":3,"name":"Hair care","service":0,"user_id":1, },
+	   ],
+  	 "default":{
+               "id":1,"name":"I Like Hairdressing",
+               "description":null,
+               "address":null,
+               "website":"https:\/\/www.ilikehairdressing.com",
+               "contact_number":"+606 601 5889",
+               "country":"MY",
+               "timezone":"Asia\/Kuala_Lumpur",
+               "currency":"MYR",
+               "time_format":"24-hours",
+               "user_id":1
+         }
+    }
+````
+Using with Laravel: 
+
+```php
+ public function generateReceipt($id) {
+
+        $filename = uniqid()."_data";
+        $datafile = base_path() . "/storage/jasper/data.json";
+        $output = base_path() . "/storage/jasper/data"; //indicate the name of the output PDF
+        JasperPHP::process(
+                    base_path() . '/resources/reports/taxinvoice80.jrxml',
+                    $output,
+                    array("pdf"),
+                    array("msg"=>"Hello"),
+                    array("driver"=>"json", "username"=>"admin", "password"=>"", "json_query" => "data", "data_file" =>  $datafile)  
+                )->execute();
+     }
+```
+Some hack to JasperReport datasource is required. You need to indicate datasource expression for each table, list, and subreport.
+  ```xml
+	<datasetRun subDataset="invoice_details" uuid="a91cc22b-9a3f-45eb-9b35-244890d35fc7">
+            <dataSourceExpression>
+	       <![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("result.details")]]>
+	    </dataSourceExpression>
+	</datasetRun>
+   ```
+
+
+
 ## Performance
 
 Depends on the complexity, amount of data and the resources of your machine (let me know your use case).
