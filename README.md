@@ -291,14 +291,13 @@ Using with Laravel:
 ```php
  public function generateReceipt($id) {
 
-        $filename = uniqid()."_data";
         $datafile = base_path() . "/storage/jasper/data.json";
         $output = base_path() . "/storage/jasper/data"; //indicate the name of the output PDF
         JasperPHP::process(
                     base_path() . '/resources/reports/taxinvoice80.jrxml',
                     $output,
                     array("pdf"),
-                    array("msg"=>"Hello"),
+                    array("msg"=>"Tax Invoice"),
                     array("driver"=>"json", "username"=>"admin", "password"=>"", "json_query" => "data", "data_file" =>  $datafile)  
                 )->execute();
      }
