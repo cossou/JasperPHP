@@ -5,7 +5,7 @@ Package to generate reports with [JasperReports 6](http://community.jaspersoft.c
 ## Install
 
 ```
-composer require starkliew/jasperphp
+composer require cossou/jasperphp
 ```
 
 ## Introduction
