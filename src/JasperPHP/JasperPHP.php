@@ -127,6 +127,12 @@ class JasperPHP
 
             if ( isset($db_connection['db_sid']) && !empty($db_connection['db_sid']) )
                 $command .= ' --db-sid ' . $db_connection['db_sid'];
+           
+            if ( isset($db_connection['json_query']) && !empty($db_connection['json_query']) )
+                $command .= ' --json-query ' . $db_connection['json_query'];
+            
+            if ( isset($db_connection['data_file']) && !empty($db_connection['data_file']) )
+                $command .= ' --data-file ' . $db_connection['data_file'];
 
         }
 
