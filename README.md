@@ -50,7 +50,7 @@ First we need to compile our `JRXML` file into a `JASPER` binary file. We just h
 **Note:** You don't need to do this step if you are using *Jaspersoft Studio*. You can compile directly within the program.
 
 ```php
-JasperPHP::compile(base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jrxml')->execute();
+JasperPHP::compile(base_path('/vendor/cossou/jasperphp/examples/hello_world.jrxml'))->execute();
 ```
 
 This commando will compile the `hello_world.jrxml` source file to a `hello_world.jasper` file.
@@ -63,10 +63,10 @@ Now lets process the report that we compile before:
 
 ```php
 JasperPHP::process(
-	base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jasper',
+	base_path('/vendor/cossou/jasperphp/examples/hello_world.jasper'),
 	false,
-	array("pdf", "rtf"),
-	array("php_version" => phpversion())
+	array('pdf', 'rtf'),
+	array('php_version' => phpversion())
 )->execute();
 ```
 
@@ -80,7 +80,7 @@ Querying the jasper file to examine parameters available in the given jasper rep
 
 ```php
 $output = JasperPHP::list_parameters(
-		base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jasper'
+		base_path('/vendor/cossou/jasperphp/examples/hello_world.jasper')
 	)->execute();
 
 foreach($output as $parameter_description)
@@ -93,10 +93,10 @@ We can also specify parameters for connecting to database:
 
 ```php
 JasperPHP::process(
-    base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jasper',
+    base_path('/vendor/cossou/jasperphp/examples/hello_world.jasper'),
     false,
-    array("pdf", "rtf"),
-    array("php_version" => phpversion()),
+    array('pdf', 'rtf'),
+    array('php_version' => phpversion()),
     array(
       'driver' => 'postgres',
       'username' => 'vagrant',
@@ -197,7 +197,7 @@ class SomethingController
     public function generateReport()
     {        
         //jasper ready to call
-        JasperPHP::compile(base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jrxml')->execute();
+        JasperPHP::compile(base_path('/vendor/cossou/jasperphp/examples/hello_world.jrxml'))->execute();
     }
 }    
 ```
@@ -255,37 +255,37 @@ Source file example:
 
 ```json
 {
- "result":{
-             "id":26,
-             "reference":"0051711080021460005",
-	     "account_id":1,
-	     "user_id":2,
-	     "date":"2017-11-08 00:21:46",
-	     "type":"",
-	     "gross":138,
-	     "discount":0,
-	     "tax":4.08,
-	     "nett":142.08,
-	     "details":[
-	              {"id":26, "line": 1, "product_id": 26 },
-		   ]
-	    },
-  "options":{
+    "result":{
+        "id":26,
+        "reference":"0051711080021460005",
+        "account_id":1,
+        "user_id":2,
+        "date":"2017-11-08 00:21:46",
+        "type":"",
+        "gross":138,
+        "discount":0,
+        "tax":4.08,
+        "nett":142.08,
+        "details":[
+            {"id":26, "line": 1, "product_id": 26 },
+        ]
+    },
+    "options":{
         "category":[
-                {"id":3,"name":"Hair care","service":0,"user_id":1, },
-	   ],
-  	 "default":{
-               "id":1,"name":"I Like Hairdressing",
-               "description":null,
-               "address":null,
-               "website":"https:\/\/www.ilikehairdressing.com",
-               "contact_number":"+606 601 5889",
-               "country":"MY",
-               "timezone":"Asia\/Kuala_Lumpur",
-               "currency":"MYR",
-               "time_format":"24-hours",
-               "user_id":1
-         }
+            {"id":3,"name":"Hair care","service":0,"user_id":1, },
+        ],
+        "default":{
+            "id":1,"name":"I Like Hairdressing",
+            "description":null,
+            "address":null,
+            "website":"https:\/\/www.ilikehairdressing.com",
+            "contact_number":"+606 601 5889",
+            "country":"MY",
+            "timezone":"Asia\/Kuala_Lumpur",
+            "currency":"MYR",
+            "time_format":"24-hours",
+            "user_id":1
+        }
     }
 }
 ```
@@ -308,6 +308,7 @@ Using Laravel:
 ```
 
 Some hack to JasperReport datasource is required. You need to indicate datasource expression for each table, list, and subreport.
+
 ```xml
 	<datasetRun subDataset="invoice_details" uuid="a91cc22b-9a3f-45eb-9b35-244890d35fc7">
             <dataSourceExpression>
