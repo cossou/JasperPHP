@@ -169,38 +169,40 @@ Add `JasperPHP\JasperPHPServiceProvider::class` to config `config/app.php` in se
 File `config/app.php`
 
 ```php
-<?php 
-.......
-.......
+<?php
+//...
 'providers' => [
-    .......
+    //...
     Illuminate\Translation\TranslationServiceProvider::class,
     Illuminate\Validation\ValidationServiceProvider::class,
     Illuminate\View\ViewServiceProvider::class,
-    //insert jasper service provider here 
+
+    //insert jasper service provider here
     JasperPHP\JasperPHPServiceProvider::class
 ],
-......
-......
 
 ```
 
-Uses in Controller by add `use JasperPHP` after namespace
+Uses in Controller by adding `use JasperPHP` after namespace
 ```php
 <?php
 namespace App\Http\Controllers;
+
 use JasperPHP; // put here
-......
-......
+
+class SomethingController
+{
+	//...
+
     public function generateReport()
     {        
         //jasper ready to call
         JasperPHP::compile(base_path() . '/vendor/cossou/jasperphp/examples/hello_world.jrxml')->execute();
     }
-......    
+}    
 ```
 
-Uses in Route
+Use in Route
 ```php
 use JasperPHP\JasperPHP as JasperPHP;
 
@@ -233,7 +235,7 @@ Route::get('/', function () {
 Add to your `app/config/app.php` providers array:
 
 ```php
-'JasperPHP\JasperPHPServiceProvider',
+	'JasperPHP\JasperPHPServiceProvider',
 ```
 Now you will have the `JasperPHP` alias available.
 
@@ -245,7 +247,7 @@ We ship the [MySQL connector](http://dev.mysql.com/downloads/connector/j/) (v5.1
 
 We ship the [PostgreSQL](https://jdbc.postgresql.org/) (v9.4-1203) in the `/src/JasperStarter/jdbc/` directory.
 
-Note: Laravel uses `pgsql` driver name instead of `postgres`. 
+Note: Laravel uses `pgsql` driver name instead of `postgres`.
 
 ### JSON
 
@@ -263,12 +265,12 @@ Source file example:
 	     "gross":138,
 	     "discount":0,
 	     "tax":4.08,
-	     "nett":142.08, 
+	     "nett":142.08,
 	     "details":[
 	              {"id":26, "line": 1, "product_id": 26 },
 		   ]
 	    },
-  "options":{ 
+  "options":{
         "category":[
                 {"id":3,"name":"Hair care","service":0,"user_id":1, },
 	   ],
@@ -285,33 +287,34 @@ Source file example:
                "user_id":1
          }
     }
-````
-Using with Laravel: 
+}
+```
+
+Using Laravel:
 
 ```php
- public function generateReceipt($id) {
+	public function generateReceipt($id) {
 
-        $datafile = base_path() . "/storage/jasper/data.json";
-        $output = base_path() . "/storage/jasper/data"; //indicate the name of the output PDF
+        $datafile = base_path('/storage/jasper/data.json');
+        $output = base_path('/storage/jasper/data'); //indicate the name of the output PDF
         JasperPHP::process(
-                    base_path() . '/resources/reports/taxinvoice80.jrxml',
+                    base_path('/resources/reports/taxinvoice80.jrxml'),
                     $output,
                     array("pdf"),
                     array("msg"=>"Tax Invoice"),
-                    array("driver"=>"json", "username"=>"admin", "password"=>"", "json_query" => "data", "data_file" =>  $datafile)  
+                    array("driver"=>"json", "json_query" => "data", "data_file" =>  $datafile)  
                 )->execute();
      }
 ```
+
 Some hack to JasperReport datasource is required. You need to indicate datasource expression for each table, list, and subreport.
-  ```xml
+```xml
 	<datasetRun subDataset="invoice_details" uuid="a91cc22b-9a3f-45eb-9b35-244890d35fc7">
             <dataSourceExpression>
 	       <![CDATA[((net.sf.jasperreports.engine.data.JsonDataSource)$P{REPORT_DATA_SOURCE}).subDataSource("result.details")]]>
 	    </dataSourceExpression>
 	</datasetRun>
-   ```
-
-
+```
 
 ## Performance
 
