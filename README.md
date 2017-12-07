@@ -241,11 +241,11 @@ Now you will have the `JasperPHP` alias available.
 
 ### MySQL
 
-We ship the [MySQL connector](http://dev.mysql.com/downloads/connector/j/) (v5.1.34) in the `/src/JasperStarter/jdbc/` directory.
+We ship the [MySQL connector](http://dev.mysql.com/downloads/connector/j/) (v5.1.45) in the `/src/JasperStarter/jdbc/` directory.
 
 ### PostgreSQL
 
-We ship the [PostgreSQL](https://jdbc.postgresql.org/) (v9.4-1203) in the `/src/JasperStarter/jdbc/` directory.
+We ship the [PostgreSQL](https://jdbc.postgresql.org/) (v9.4-1212.jre6) in the `/src/JasperStarter/jdbc/` directory.
 
 Note: Laravel uses `pgsql` driver name instead of `postgres`.
 
