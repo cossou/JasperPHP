@@ -53,7 +53,7 @@ First we need to compile our `JRXML` file into a `JASPER` binary file. We just h
 JasperPHP::compile(base_path('/vendor/cossou/jasperphp/examples/hello_world.jrxml'))->execute();
 ```
 
-This commando will compile the `hello_world.jrxml` source file to a `hello_world.jasper` file.
+This command will compile the `hello_world.jrxml` source file to a `hello_world.jasper` file.
 
 **Note:** If you are using Laravel 4 run `php artisan tinker` and copy & paste the command above.
 
