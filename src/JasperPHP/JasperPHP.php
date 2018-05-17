@@ -95,7 +95,7 @@ class JasperPHP
             $command .= " -P";
             foreach ($parameters as $key => $value)
             {
-                $command .= " " . $key . "=" . $value;
+                $command .= " " . $key . '="' . $value .'"';
             }
         }
 
