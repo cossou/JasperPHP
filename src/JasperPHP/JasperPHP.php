@@ -90,7 +90,7 @@ class JasperPHP
         // Resources dir
         $command .= " -r " . $this->resource_directory;
 
-        if( count($parameters) > 0 )
+        if( !empty($parameters) )
         {
             $command .= " -P";
             foreach ($parameters as $key => $value)
