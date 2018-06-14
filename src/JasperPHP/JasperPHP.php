@@ -56,7 +56,7 @@ class JasperPHP
         return $this;
     }
 
-    public function process($input_file, $output_file = false, $format = array("pdf"), $parameters = array(), $db_connection = array(), $background = true, $redirect_output = true)
+    public function process($input_file, $output_file = false, $format = array("pdf"), $parameters = array(), $db_connection = array(), $background = true, $redirect_output = true, $filter_params = false)
     {
         if(is_null($input_file) || empty($input_file))
             throw new \Exception("No input file", 1);
@@ -73,7 +73,17 @@ class JasperPHP
                     throw new \Exception("Invalid format!", 1);
         }
 
-        $command = __DIR__ . $this->executable;
+        $params_command = $command = __DIR__ . $this->executable;
+
+        $params_command .= " params " . $input_file . " 2>&1 ";
+
+        if($filter_params){
+          exec($params_command, $params_output);
+          foreach ($params_output as $key => &$param) {
+            $exploded = explode(" ", $param);
+            $param = $exploded[1];
+          }
+        }
 
         $command .= " process ";
 
@@ -95,7 +105,8 @@ class JasperPHP
             $command .= " -P";
             foreach ($parameters as $key => $value)
             {
-                $command .= " " . $key . "=" . $value;
+              if(!$filter_params || in_array($key, $params_output))
+                $command .= " " . $key . "=\"" . $value."\"";
             }
         }
 
@@ -124,7 +135,7 @@ class JasperPHP
             if( isset($db_connection['jdbc_url']) && !empty($db_connection['jdbc_url']) )
                 $command .= " --db-url " . $db_connection['jdbc_url'];
 
-            if ( isset($db_connection['jdbc_dir']) && !empty($db_connection['jdbc_dir']) ) 
+            if ( isset($db_connection['jdbc_dir']) && !empty($db_connection['jdbc_dir']) )
                 $command .= ' --jdbc-dir ' . $db_connection['jdbc_dir'];
 
             if ( isset($db_connection['db_sid']) && !empty($db_connection['db_sid']) )
