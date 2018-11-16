@@ -249,6 +249,19 @@ We ship the [PostgreSQL](https://jdbc.postgresql.org/) (v9.4-1212.jre6) in the `
 
 Note: Laravel uses `pgsql` driver name instead of `postgres`.
 
+### SQLite
+
+We ship the [SQLite](https://www.sqlite.org/) (version v056, based on SQLite 3.6.14.2) in the `/src/JasperStarter/jdbc/` directory.
+
+```
+array(
+    'driver' => 'generic',
+    'jdbc_driver' => 'org.sqlite.JDBC',
+    'jdbc_url' => 'jdbc:sqlite:/database.sqlite'
+)
+```
+
+
 ### JSON
 
 Source file example:
