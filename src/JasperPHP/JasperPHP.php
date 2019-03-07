@@ -192,4 +192,9 @@ class JasperPHP
 
         return $output;
     }
+    
+    public function setResourceDirectory($resourceDirectory) 
+    {
+        $this->resource_directory = $resourceDirectory;
+    }    
 }
