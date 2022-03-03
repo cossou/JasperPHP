@@ -2,6 +2,178 @@
 JasperStarter - Running JasperReports from command line
 ========================================================
 
+Release notes - JasperStarter - Version 3.6.2
+---------------------------------------------
+
+** Bug
+    * JAS-161 CVE-2021-44832 in log4j-2.17.0
+
+
+Release notes - JasperStarter - Version 3.6.1
+---------------------------------------------
+
+** Bug
+    * JAS-160 log4j 2.16.0 is vulnerable to CVE-2021-45105
+
+
+Release notes - JasperStarter - Version 3.6.0
+---------------------------------------------
+
+** Bug
+    * CVE-2019-17571 - Included in Log4j 1.2 is a SocketServer class that is
+      vulnerable to deserialization of untrusted data which can be exploited to
+      remotely execute arbitrary code when combined with a deserialization
+      gadget when listening to untrusted network traffic for log data. This
+      affects Log4j versions up to 1.2 up to 1.2.17.
+
+    * [JAS-158] Jasperstarter contains an old log4j-1.2.17 which is affected by CVE-2019-17571
+    * [JAS-146] mvn: Could not resolve dependencies \(...\) from/to jaspersoft.artifactoryonline.com
+    * [JAS-142] Failed to generate qrcode - zxing library missing
+
+** Improvement
+    * [JAS-156] Is JasperStarter vulnerable to CVE-2021-44228
+
+** Task
+    * [JAS-157] Include JasperReports 6.18.1
+
+
+Release notes - JasperStarter - Version 3.5.0
+---------------------------------------------
+
+** Bug
+    * [JAS-134] - "InterruptedException" should not be ignored in App.java
+    * [JAS-135] - comparisons between unrelated types in Config.java
+
+** New Feature
+    * [JAS-131] - Jasperstarter does not provide a way to use the query string saved in the report itself
+
+** Task
+    * [JAS-133] - Release Pipeline takes longer than before
+    * [JAS-136] - Throwable.printStackTrace(...) should not be called in Report.java setLookAndFeel()
+    * [JAS-137] - Do not use a bitwise operator with a Boolean-like operand in ParameterPanel.java
+    * [JAS-138] - Do not use a bitwise operator with a Boolean-like operand in ParameterPrompt.java
+
+
+Release notes - JasperStarter - Version 3.4.1
+---------------------------------------------
+
+** Bug
+    * [JAS-132] - Security alert on org.springframework:spring-core
+                  Updated springframework to 4.3.21
+
+    CVE-2016-5007 - moderate severity - Vulnerable versions: < 4.3.1
+    CVE-2018-1275 - high severity - Vulnerable versions: < 4.3.16
+    CVE-2018-1272 - moderate severity - Vulnerable versions: < 4.3.15
+    CVE-2018-1271 - moderate severity - Vulnerable versions: < 4.3.15
+    CVE-2018-1270 - high severity - Vulnerable versions: < 4.3.16
+    CVE-2018-1257 - moderate severity - Vulnerable versions: < 4.3.17
+
+
+Release notes - JasperStarter - Version 3.4.0
+---------------------------------------------
+
+  JasperStarter-3.2.0 silently dropped Java7 support by using the
+  latest available JasperReports Library.
+  JasperReports-6.4.0 is the last release which works with Java7 so
+  JasperStarter-3.1.0 was the latest release supporting Java7.
+
+  Now JasperStarter needs Java8 at a minimum and is manually tested
+  with OpenJDK-8, OpenJDK-10, OpenJDK-11. Automatic testing is on the
+  way (see JAS-128).
+  There will be a special release supporting Java7.
+
+  "Diskless" operation using stdin and stdout for input data and
+  output is now complete. See ([JAS-97] and [JAS-89]).
+
+  A public API allows direct integration with Python using jpy
+  ([JAS-125]).
+
+Known bugs:
+    * [JAS-120] - JasperReports-6.7.0 Version does not match with
+                  reported version from the jar file in
+      This is an upstream error which causes JasperStarter to put out
+      a wrong JasperReports version number of 6.6.0 instead of 6.7.0
+      if you call: jasperstarter -V
+
+** Bug
+    * [JAS-111] - JRE 1.7 incompatibility - not fixed in the main
+                  release but clarified.
+    * [JAS-122] - Runtime error if a chart with "chart customizers" is
+                  used
+    * [JAS-126] - Jasperstarter does not usefully propagate
+                  compilation errors
+
+** New Feature
+    * [JAS-97] - Use stdout for the resulting PDF (so we don't have to
+                 write to the hosting server's storage)
+    * [JAS-125] - Make report fill accessible via API
+
+** Task
+    * [JAS-127] - Enable dependency caching in build pipeline
+    * [JAS-129] - Remove test dependency to font Arial
+    * [JAS-130] - launch4j-maven-plugin:1.5.2 depends on 32bit
+                  libraries
+
+
+Release notes - JasperStarter - Version 3.3.0
+---------------------------------------------
+
+Known bugs:
+    * [JAS-120] - JasperReports-6.7.0 Version does not match with reported version from the jar file in 
+      This is an upstream error which causes JasperStarter to put out
+      a wrong JasperReports version number of 6.6.0 instead of 6.7.0
+      if you call: jasperstarter -V
+
+** Bug
+    * [JAS-116] - SSL error
+    * [JAS-121] - Container 'Build' exceeded memory limit.
+    * [JAS-122] - Runtime error if a chart with "chart customizers" is used
+
+** New Feature
+    * [JAS-113] - JSONQL data source support
+
+** Task
+    * [JAS-102] - Pipeline: enable build artifact upload to download section
+    * [JAS-119] - Include JasperReports-6.7.0
+
+** Improvement
+    * [JAS-89] - Accept stdin for datafile input
+
+
+Release Notes - JasperStarter - Version 3.2.1
+---------------------------------------------
+
+** Task
+    * [JAS-109] - Include JasperReports-6.4.3
+
+
+Release Notes - JasperStarter - Version 3.2.0
+---------------------------------------------
+
+** Bug
+    * [JAS-96] - Enable JavaScript in expression
+    * [JAS-99] - jasperreports-functions not in maven central
+    * [JAS-100] - Pipeline build failed: Font "Arial" is not available to the JVM
+    * [JAS-101] - Pipeline build failed: net.sf.launch4j.ExecException: java.io.IOException: Cannot run program
+    * [JAS-107] - JasperStarter could not run reports with Barcode4J barcodes
+
+** Task
+    * [JAS-108] - Include JasperReports 6.4.1
+
+
+Release Notes - JasperStarter - Version 3.1.0
+---------------------------------------------
+
+** New Feature
+    * [JAS-83] - JSON file as a data source
+
+** Task
+    * [JAS-95] - Include JasperReports 6.4.0
+
+** Improvement
+    * [JAS-84] - How to pass $P{XML_DATA_DOCUMENT} to sub report - additional documentation
+
+
 Release Notes - JasperStarter - Version 3.0.0
 ---------------------------------------------
 
@@ -222,7 +394,7 @@ JasperStarter is now able to prompt for report parameters.
           jrxml    - compiles implicit
           jrprint  - print, view or export previously filled reports.
         New output type: jrprint. This makes --keep obsolete.
-        New parameter -w writes compiled file to imput dir if jrxml is
+        New parameter -w writes compiled file to input dir if jrxml is
         processed.
         Parameter -t defaults to "none" and can therefore be omited if no
         database is needed.

@@ -5,10 +5,19 @@ JasperStarter - Running JasperReports from command line
 JasperStarter is an opensource command line launcher and batch compiler for
 [JasperReports][].
 
+The official homepage is [jasperstater.cenote.de][].
+
+**JasperStarter is not vulnerable to [CVE-2021-44228](https://nvd.nist.gov/vuln/detail/CVE-2021-44228).**
+
+**But all releases including 3.5.0 contain log4j-1.2.17 which is affected by
+[CVE-2019-17571](https://nvd.nist.gov/vuln/detail/CVE-2019-17571).** I cannot say if it is possible to
+exploit this with JasperStarter but in any case you should update to a newer version of JasperStarter.
+
 It has the following features:
 
-  * Run any JasperReport that needs a jdbc, csv, xml or empty datasource
+  * Run any JasperReport that needs a jdbc, csv, xml, json, jsonql or empty datasource
   * Use with any database for which a jdbc driver is available
+  * Run reports with subreports
   * Execute reports that need runtime parameters. Any parameter whose class has
     a string constructor is accepted. Additionally the following types are
     supported or have special handlers:
@@ -20,27 +29,26 @@ It has the following features:
   * Export to file in the following formats:
     * pdf, rtf, xls, xlsMeta, xlsx, docx, odt, ods, pptx, csv, csvMeta, html, xhtml, xml, jrprint
   * Export multiple formats in one commanding call
-  * Compile, Print and export in one commanding call
+  * Compile, print and export in one commanding call
   * View, print or export previously filled reports (use jrprint file as input)
   * Can compile a whole directory of .jrxml files.
   * Integrate in non Java applications (for example PHP, Python)
   * Binary executable on Windows
   * Includes JasperReports so this is the only tool you need to install
+  * "Diskless" operation using stdin and stdout for input data and output.
 
-Requirements
+Requirements:
 
-  * Java 1.6 or higher.
+  * Java 1.8
   * A JDBC 2.1 driver for your database
 
 
 ### Quickstart
 
-  * Download JasperStarter from [Sourceforge][]
+  * Download JasperStarter from [Sourceforge][].
   * Extract the distribution archive to any directory on your system.
-  * Add the _./bin_ directoy of your installation to your searchpath.
-
-  * or just invoke _setup.exe_ on Windows
-
+  * Add the _./bin_ directory of your installation to your searchpath (on
+    Windows: invoke setup.exe).
   * Put your jdbc drivers in the _./jdbc_ directory of your installation or
     use _\--jdbc-dir_ to point to a different directory.
 
@@ -66,10 +74,47 @@ Example with hsql using database type generic:
 For more information take a look in the docs directory of the distibution
 archive or read the [Usage][] page online.
 
+### Python Integration using public API
+
+JasperStarter exposes an API which can be used with [jpy][] to
+provide direct access from Python:
+
+    #
+    # Load the JVM. See the jpy docs for details.
+    #
+    import jpyutil
+    jpyutil.init_jvm(jvm_maxmem='512M', jvm_classpath=['.../jasperstarter.jar'])
+    #
+    # Load the Java types needed.
+    #
+    import jpy
+    Arrays = jpy.get_type('java.util.Arrays')
+    File = jpy.get_type('java.io.File')
+    Report = jpy.get_type('de.cenote.jasperstarter.Report')
+    Config = jpy.get_type('de.cenote.jasperstarter.Config')
+    DsType = jpy.get_type('de.cenote.jasperstarter.types.DsType')
+    #
+    # Create the JasperStarter configuration. See Config.java for details.
+    #
+    config = Config()
+    config.setInput('jsonql.jrxml')
+    config.setOutput('contacts.pdf')
+    config.setDbType(DsType.json)
+    config.setDataFile(File('contacts.json'))
+    config.setJsonQuery('contacts.person')
+    config.setOutputFormats(Arrays.asList([]))
+    #
+    # Run the report. See Report.java for details.
+    #
+    instance = Report(config, File(config.getInput()))
+    instance.fill()
+    instance.exportPdf()
+
+See the examples/python directory for a fuller example.
 
 ### Release Notes
 
-See CHANGES file for a history of changes.
+See [Changes] for a history of changes.
 
 
 #### Known Bugs
@@ -87,27 +132,26 @@ and create a bug or feature request.
 If you like the software you can write a [review][] :-)
 
 
-### Developement
+### Development
 
 The sourcecode is available at [bitbucket.org/cenote/jasperstarter][], the
 project website is hosted at [Sourceforge][].
 
 JasperStarter is build with [Maven][]. 
 
-Unfortunately one dependency (jasperreports-functions) is not provided
-in a public maven repository so you must add it to your local maven
-repo:
+On Linux 64 bit the launch4j-maven-plugin may fail. In this case, may you need the following libs in a 32 bit version:
 
-    # Download jasperreports-functions-6.0.4.jar from
-    # https://sourceforge.net/projects/jasperreports/files/jasperreports/
-    $ jar xvf jasperreports-functions-6.0.4.jar META-INF/maven/net.sf.jasperreports/jasperreports-functions/pom.xml
-    $ mvn install:install-file -Dfile=jasperreports-functions-6.0.4.jar -DpomFile=META-INF/maven/net.sf.jasperreports/jasperreports-functions/pom.xml
+  * z1
+  * ncurses5
+  * bz2-1.0
 
-See https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html
+Install on Ubuntu 14.04 or above:
 
-It is possible to compile JasperStarter without this dependency but users
-will run into errors if they use specific functions in their reports.
-So there is a test that fails if jasperreports-functions is not available.
+    $ sudo apt-get install lib32z1 lib32ncurses5 lib32bz2-1.0
+
+Install on Fedora 27 or above:
+
+    $sudo dnf install ncurses-compat-libs.i686
 
 To get a distribution package run:
 
@@ -148,11 +192,11 @@ or
 During development you might want not to be annoyed by tests. So the following
 options are useful:
 
-    $ package -P dev -D skipTests
+    $ mvn package -P dev -D skipTests
 
 or
 
-    $ package -P dev -D maven.test.failure.ignore=true
+    $ mvn package -P dev -D maven.test.failure.ignore=true
 
 To run JasperStarter from within your IDE add _\--jdbc-dir jdbc_ to the argument
 list of your run configuration. Otherwise you will get an error:
@@ -179,6 +223,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+[jasperstater.cenote.de]:http://jasperstarter.cenote.de/
 [JasperReports]:http://community.jaspersoft.com/project/jasperreports-library
 [Maven]:http://maven.apache.org/
 [Sourceforge]:http://sourceforge.net/projects/jasperstarter/
@@ -188,3 +233,5 @@ limitations under the License.
 [Issuetracker]:https://cenote-issues.atlassian.net/browse/JAS
 [Usage]:http://jasperstarter.sourceforge.net/usage.html
 [Issues]:https://cenote-issues.atlassian.net/browse/JAS
+[Changes]:changes.html
+[jpy]:https://github.com/bcdev/jpy
