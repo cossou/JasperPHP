@@ -1,3 +1,11 @@
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+# DEPRECATED
+
+This is no longer supported.
+
+Please consider migrating to [phpjaster](https://github.com/PHPJasper/phpjasper).
+
 # JasperReports for PHP
 
 Package to generate reports with [JasperReports 6](http://community.jaspersoft.com/project/jasperreports-library) library through [JasperStarter v3](http://jasperstarter.sourceforge.net/) command-line tool.
