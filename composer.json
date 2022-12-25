@@ -21,5 +21,10 @@
         "psr-0": {
             "JasperPHP": "src/"
         }
+    },
+    "extra": {
+        "branch-alias" : {
+            "master" : "2.9"
+        }
     }
 }
