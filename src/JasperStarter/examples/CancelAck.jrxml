@@ -39,35 +39,35 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="13" isBold="true"/>
+					<font size="13" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Canceled Tax Documents]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="cfef981f-fffa-4c5c-8dda-a8871f00a49f" x="244" y="57" width="256" height="18"/>
 				<textElement textAlignment="Center">
-					<font fontName="Arial" size="11" isBold="true"/>
+					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cancelation Acknowledgement]]></text>
 			</staticText>
 			<textField pattern="d/M/yyyy">
 				<reportElement uuid="5f10c6b4-2a29-45c9-990d-1582d698e7ed" x="380" y="87" width="60" height="19"/>
 				<textElement>
-					<font fontName="Arial"/>
+					<font />
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Date}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="74d0c1e1-20e4-44c0-9530-593cb55f353a" x="440" y="87" width="60" height="19"/>
 				<textElement>
-					<font fontName="Arial"/>
+					<font />
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Hour}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="db8ca2dd-b146-4ef4-9bcf-6e2d151dcfb2" x="380" y="125" width="100" height="19"/>
 				<textElement>
-					<font fontName="Arial"/>
+					<font />
 				</textElement>
 				<textFieldExpression><![CDATA[$F{VAT}]]></textFieldExpression>
 			</textField>
@@ -95,14 +95,14 @@
 			<textField pattern="d/M/yyyy">
 				<reportElement uuid="90e35371-99b6-4ca7-a5f7-fe211244d76d" x="380" y="105" width="60" height="19"/>
 				<textElement>
-					<font fontName="Arial"/>
+					<font />
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Date}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="0032ffe3-aa1c-4e24-b7f2-fdfd305ff698" x="440" y="105" width="60" height="19"/>
 				<textElement>
-					<font fontName="Arial"/>
+					<font />
 				</textElement>
 				<textFieldExpression><![CDATA[$V{Hour}]]></textFieldExpression>
 			</textField>
@@ -159,7 +159,7 @@
 					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#B5B5B5"/>
 				</box>
 				<textElement>
-					<font fontName="Arial"/>
+					<font />
 				</textElement>
 				<textFieldExpression><![CDATA[$F{UUID}]]></textFieldExpression>
 			</textField>
@@ -175,7 +175,7 @@
 					<rightPen lineWidth="0.1" lineStyle="Solid" lineColor="#B5B5B5"/>
 				</box>
 				<textElement>
-					<font fontName="Arial"/>
+					<font />
 				</textElement>
 				<textFieldExpression><![CDATA[$F{StatusUUID}.equals("201") ? "Canceled" : $F{StatusUUID}.equals("202") ? "Previously Canceled" : $F{StatusUUID}.equals("203") ? "Invalid fot VAT number" : $F{StatusUUID}.equals("204") ? "Can't be canceled" : $F{StatusUUID}.equals("205") ? "ID doesn't exist" : "invalid error code"]]></textFieldExpression>
 			</textField>
@@ -208,7 +208,7 @@
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="7ae79615-9f62-4509-960f-687837fdb7bf" x="50" y="16" width="460" height="15"/>
 				<textElement>
-					<font fontName="Arial"/>
+					<font />
 				</textElement>
 				<textFieldExpression><![CDATA[$F{SignatureValue}]]></textFieldExpression>
 			</textField>

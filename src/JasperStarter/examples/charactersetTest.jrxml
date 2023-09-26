@@ -13,7 +13,7 @@
 				<staticText>
 					<reportElement uuid="2464c9ca-82a1-48c9-87ea-b68192294c4a" x="20" y="20" width="349" height="45" forecolor="#FFFFFF"/>
 					<textElement>
-						<font fontName="Arial" size="34" isBold="true"/>
+						<font fontName="DejaVu Sans" size="34" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Characterset Test]]></text>
 				</staticText>
@@ -28,9 +28,9 @@
 			<staticText>
 				<reportElement uuid="6f85b46e-f5b1-4f07-b38c-aa0f6bf985e3" x="14" y="19" width="521" height="30"/>
 				<textElement>
-					<font fontName="Arial"/>
+					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<text><![CDATA[You can view or print this report but in pdf output you will miss some characters as long as you did not provide the Arial font as described in this HowTo: http://jasperstarter.sourceforge.net/unicode-pdf-export.html]]></text>
+				<text><![CDATA[You can view or print this report but in pdf output you will miss some characters as long as you did not provide the Arial or DejaVu font as described in this HowTo: http://jasperstarter.sourceforge.net/unicode-pdf-export.html]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -42,21 +42,21 @@
 			<staticText>
 				<reportElement uuid="c15d0e17-2850-4010-b65a-e4822a371ba3" x="14" y="15" width="521" height="24"/>
 				<textElement>
-					<font fontName="Arial" size="15"/>
+					<font fontName="DejaVu Sans" size="15"/>
 				</textElement>
 				<text><![CDATA[German umlauts: ä ö ü ß]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="932e0e82-e31a-42d5-9a10-b3bb48b06acf" x="14" y="39" width="521" height="24"/>
 				<textElement>
-					<font fontName="Arial" size="15"/>
+					<font fontName="DejaVu Sans" size="15"/>
 				</textElement>
 				<text><![CDATA[Czech: á č ď é ě í ň ó ř š ť ú ů ý ž]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="91d9e448-d40d-4ee0-98a2-0e92c00f8b6c" x="14" y="63" width="521" height="24"/>
 				<textElement>
-					<font fontName="Arial" size="15"/>
+					<font fontName="DejaVu Sans" size="15"/>
 				</textElement>
 				<text><![CDATA[Cyrillic: б в г д ж з и ь к л м н п ф ц ч ш шт э я ю я ы]]></text>
 			</staticText>
